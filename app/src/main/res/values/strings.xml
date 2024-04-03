@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TestGoSport</string>
+
+
+    <!-- Bottom menu strings -->
+    <string name="menu_menu">Menu</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_cart">Cart</string>
+</resources>

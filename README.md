@@ -11,8 +11,8 @@
     <li type="disc">Планка с категориями при скролле должна прилипать к верхнему бару(для примера можно посмотреть приложение Додо Пицца).</li>
     <li type="disc">В качестве API можно использовать данную API </li>
     <ul>
-      <li type="circle">Для загрузки списка продукции <a href="и themealdb.com/api/json/v1/1/search.php?s">и themealdb.com/api/json/v1/1/search.php?s</a></li>
-      <li type="circle">Для загрузки списка категорий (тегов) <a href=" themealdb.com/api/json/v1/1/categories.php"> themealdb.com/api/json/v1/1/categories.php</a></li>
+      <li type="circle">Для загрузки списка продукции <a href="themealdb.com/api/json/v1/1/search.php?s">themealdb.com/api/json/v1/1/search.php?s</a></li>
+      <li type="circle">Для загрузки списка категорий (тегов) <a href="themealdb.com/api/json/v1/1/categories.php">themealdb.com/api/json/v1/1/categories.php</a></li>
       <li type="circle">Фильтровать продукцию можно по параметру strCategory на клиенте, без дополнительных сетевых запросов</li>
     </ul></li>
     <li type="disc">Offline-режим: т.е. в случае, если нет доступа к сети, показывать последние загруженные данные(и ленту, и детали)</li>
