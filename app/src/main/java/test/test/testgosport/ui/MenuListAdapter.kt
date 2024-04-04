@@ -65,19 +65,6 @@ class MenuListAdapter(
                         }
                     }
                 }
-//                meal.getIngredients().keys.forEach {
-//                    if (it.isNotBlank()) {
-//                        ingredientsString += it.toLowerCase()
-//                        ingredientsString += ", "
-//                    }
-//                }
-                //ingredTextView.text = ingredientsString.dropLast(2)
-                //ingredTextView.text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"//70
-//                ingredientsString = if (ingredientsString.length > 70) {
-//                    ingredientsString.substring(0, 70) + "..."
-//                } else {
-//                    ingredientsString.dropLast(2)
-//                }
                 ingredientsString = ingredientsString.dropLast(2)
                 ingredientsString = ingredientsString.replaceFirstChar { it.uppercase() }
                 ingredTextView.text = ingredientsString

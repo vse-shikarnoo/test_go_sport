@@ -39,6 +39,8 @@ class MenuFragment : Fragment(R.layout.fragment_menu_layout) {
             layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
+
+        TODO("Заменить на ViewPager")
     }
 
     private fun listeners() {
