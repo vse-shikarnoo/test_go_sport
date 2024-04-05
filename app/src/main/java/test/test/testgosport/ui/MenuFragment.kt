@@ -1,7 +1,10 @@
 package test.test.testgosport.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -18,12 +21,17 @@ class MenuFragment : Fragment(R.layout.fragment_menu_layout) {
 
     private val binding: FragmentMenuLayoutBinding by viewBinding(FragmentMenuLayoutBinding::bind)
     private val viewModel: MenuViewModel by viewModels()
-    private var listAdapter : MenuListAdapter by autoCleared()
+    private var listAdapter: MenuListAdapter by autoCleared()
+    private var catListAdapter: CategoryListAdapter by autoCleared()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        viewModel.getCategories()
         viewModel.getMeals()
+
 
         initAdapter()
         observe()
@@ -32,15 +40,24 @@ class MenuFragment : Fragment(R.layout.fragment_menu_layout) {
 
     private fun initAdapter() {
         listAdapter = MenuListAdapter {
-
         }
-        with(binding.menuList){
+        with(binding.menuList) {
             adapter = listAdapter
             layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        TODO("Заменить на ViewPager")
+        catListAdapter = CategoryListAdapter ({
+            viewModel.getSortedMeals(viewModel.categories.value!![it].strCategory)
+        },{
+            viewModel.getMeals()
+        })
+        with(binding.catList) {
+            adapter = catListAdapter
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
+        }
     }
 
     private fun listeners() {
@@ -64,6 +81,13 @@ class MenuFragment : Fragment(R.layout.fragment_menu_layout) {
                 rertyButton.visibility = View.VISIBLE
             }
             toast("Error")
+        }
+        viewModel.categories.observe(viewLifecycleOwner){
+            catListAdapter.setClickList(it.size)
+            catListAdapter.submitList(it)
+        }
+        viewModel.sortedMeals.observe(viewLifecycleOwner){
+            listAdapter.submitList(it)
         }
     }
 }
