@@ -8,15 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import test.test.testgosport.R
 import test.test.testgosport.databinding.ItemMenuListLayoutBinding
+import test.test.testgosport.databinding.ItemNewsListLayoutBinding
 import test.test.testgosport.model.MealInfo
 
 class NewsListAdapter(
     private val onItemClick: (position: Int) -> Unit
-) : ListAdapter<MealInfo, NewsListAdapter.Holder>(DiffUtilCallback()) {
+) : ListAdapter<Int, NewsListAdapter.Holder>(DiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding =
-            ItemMenuListLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemNewsListLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return Holder(binding, onItemClick)
     }
 
@@ -24,21 +25,21 @@ class NewsListAdapter(
         holder.bind(getItem(position))
     }
 
-    class DiffUtilCallback : DiffUtil.ItemCallback<MealInfo>() {
-        override fun areItemsTheSame(oldItem: MealInfo, newItem: MealInfo): Boolean {
-            return oldItem.idMeal == newItem.idMeal
+    class DiffUtilCallback : DiffUtil.ItemCallback<Int>() {
+        override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: MealInfo,
-            newItem: MealInfo
+            oldItem: Int,
+            newItem: Int
         ): Boolean {
             return oldItem == newItem
         }
     }
 
     class Holder(
-        private val binding: ItemMenuListLayoutBinding,
+        private val binding: ItemNewsListLayoutBinding,
         val onItemClick: (position: Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -48,30 +49,9 @@ class NewsListAdapter(
             }
         }
 
-        fun bind(meal: MealInfo) {
+        fun bind(drawable: Int) {
             with(binding) {
-                titleTextView.text = meal.strMeal
-                var ingredientsString = ""
-                val ingredientsSet = meal.getIngredients().keys
-
-                for (i in ingredientsSet) {
-                    if (i.isNotBlank()) {
-                        if (ingredientsString.length + i.length < 70) {
-                            ingredientsString += i.toLowerCase()
-                            ingredientsString += ", "
-                        } else {
-                            ingredientsString += "....."
-                            break
-                        }
-                    }
-                }
-                ingredientsString = ingredientsString.dropLast(2)
-                ingredientsString = ingredientsString.replaceFirstChar { it.uppercase() }
-                ingredTextView.text = ingredientsString
-                Glide.with(itemView)
-                    .load(meal.strMealThumb)
-                    .error(itemView.context.getDrawable(R.drawable.baseline_error_24))
-                    .into(imageView)
+                imageView.setImageResource(drawable)
             }
         }
     }

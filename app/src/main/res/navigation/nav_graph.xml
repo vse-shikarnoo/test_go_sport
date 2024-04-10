@@ -9,4 +9,8 @@
         android:name="test.test.testgosport.ui.MenuFragment"
         android:label="MenuFragment"
         tools:layout="@layout/fragment_menu_layout"/>
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="test.test.testgosport.ui.TestFragment"
+        android:label="TestFragment" />
 </navigation>

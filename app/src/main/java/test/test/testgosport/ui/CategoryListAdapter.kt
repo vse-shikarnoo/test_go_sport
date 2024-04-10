@@ -1,6 +1,8 @@
 package test.test.testgosport.ui
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -26,7 +28,7 @@ class CategoryListAdapter(
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), position)
     }
 
     fun setClickList(size: Int) {
@@ -34,6 +36,7 @@ class CategoryListAdapter(
             clickList.add(false)
         }
     }
+
 
     class DiffUtilCallback : DiffUtil.ItemCallback<CategoryInfo>() {
         override fun areItemsTheSame(oldItem: CategoryInfo, newItem: CategoryInfo): Boolean {
@@ -60,29 +63,40 @@ class CategoryListAdapter(
             binding.root.setOnClickListener {
                 onItemClick(adapterPosition)
                 clickList[adapterPosition] = !clickList[adapterPosition]
-                if (clickList[adapterPosition]) {
-                    binding.root.setBackgroundColor(itemView.context.getColor(R.color.black))
-                }else{
-                    binding.root.setBackgroundColor(itemView.context.getColor(R.color.white))
-                }
-                TODO("Проблема с clearcallback")
-                var k =0
-                for (i in clickList){
-                    if (i==true){
+                clearClickList(adapterPosition)
+                var k = 0
+                for (i in clickList) {
+                    if (i) {
                         k++
                     }
                 }
-                if (k==0){
-                    clearCallback
+                Log.d("TestCat", clickList.toString())
+                Log.d("TestCat", k.toString())
+                if (k == 0) {
+                    clearCallback()
                 }
             }
         }
 
-        fun bind(category: CategoryInfo) {
-            with(binding) {
-                binding.categoryTextView.text = category.strCategory
+        private fun clearClickList(position: Int) {
+            for (i in clickList.indices) {
+                if (i != position)
+                    clickList[i] = false
             }
+        }
 
+        fun bind(category: CategoryInfo, position: Int) {
+            with(binding) {
+                categoryTextView.text = category.strCategory
+                //Log.d("TestCat", position.toString())
+                //Log.d("TestCat", clickList[position].toString())
+                Log.e("bind cat view", "problem with changing view")
+                horLine.visibility = if (category.flag) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+            }
         }
     }
 }

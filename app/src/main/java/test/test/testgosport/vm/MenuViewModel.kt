@@ -18,6 +18,7 @@ class MenuViewModel: ViewModel() {
     private val errorToastLiveData = MutableLiveData<Unit>()
     private val sortedMealsLiveData = MutableLiveData<List<MealInfo>>()
     private val categoriesLiveData = MutableLiveData<List<CategoryInfo>>()
+    private val newsLiveData = MutableLiveData<List<Int>>()
 
     val meals: LiveData<List<MealInfo>>
         get() = mealsLiveData
@@ -25,9 +26,11 @@ class MenuViewModel: ViewModel() {
         get() = errorToastLiveData
     val sortedMeals: LiveData<List<MealInfo>>
         get() = sortedMealsLiveData
-
     val categories: LiveData<List<CategoryInfo>>
         get() = categoriesLiveData
+    val news:LiveData<List<Int>>
+        get() = newsLiveData
+
 
     fun getMeals(){
         viewModelScope.launch(Dispatchers.IO) {
@@ -58,6 +61,16 @@ class MenuViewModel: ViewModel() {
             }catch (e:Throwable){
                 errorToastLiveData.postValue(Unit)
                 Log.e("ERROR", e.stackTraceToString())
+            }
+        }
+    }
+
+    fun getNews(){
+        viewModelScope.launch {
+            try {
+                newsLiveData.postValue(repository.getNews())
+            }catch (e:Throwable){
+                errorToastLiveData.postValue(Unit)
             }
         }
     }

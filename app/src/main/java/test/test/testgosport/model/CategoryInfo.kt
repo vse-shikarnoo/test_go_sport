@@ -5,5 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CategoryInfo(
-    @SerializedName("strCategory") val strCategory: String
+    @SerializedName("strCategory") val strCategory: String,
+    var flag: Boolean = false
 )
